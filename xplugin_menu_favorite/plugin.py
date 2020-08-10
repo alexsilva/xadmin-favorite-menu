@@ -7,7 +7,7 @@ from xplugin_menu_favorite.models import MenuFavorite
 
 class MenuFavoritePlugin(BaseAdminPlugin):
     """
-    Plugin that allows you to add favorite menus to the menu menu
+    Plugin that allows you to add favorite menus to the site menu
     """
     menu_favorite_template = "xadmin/menu_favorite/menus.html"
     menu_favorite_template_using = None  # template engine (def. django)
