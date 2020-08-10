@@ -39,3 +39,10 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         nodes.append(render_to_string(self.menu_favorite_template,
                                       using=self.menu_favorite_template_using,
                                       context=get_context_dict(context)))
+
+    def get_media(self, media):
+        media.add_js((
+            # Script that does the action of adding / removing menus
+            'menu_favorite/js/menu_favorite.js',
+        ))
+        return media
