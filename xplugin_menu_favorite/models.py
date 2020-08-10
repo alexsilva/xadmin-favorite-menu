@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.utils.translation import ungettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 
 class MenuFavorite(models.Model):
