@@ -10,4 +10,9 @@ setup(
     author_email='alex@fabricadigital.com.br',
     description='Attach favorite menus to the list',
     include_package_data=True,
+    classifiers=[
+        'Framework :: Django',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 3.7'
+    ]
 )
