@@ -13,6 +13,7 @@ class MenuFavorite(models.Model):
 
     class Meta:
         verbose_name = _("Favorite Menu (plugin)")
+        ordering = ('order',)
 
     def __str__(self):
         return f"{self.user}/{self.order}"
