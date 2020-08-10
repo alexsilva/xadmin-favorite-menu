@@ -1,0 +1,9 @@
+{% load menus %}
+
+<ul>
+{% for menu in menus %}
+    <li>{{menu.content_type|apps:'verbose_name'}}: {{menu.content_type|opts:'verbose_name'}}</li>
+{% empty %}
+    no menus
+{% endfor %}
+</ul>
