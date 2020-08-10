@@ -8,5 +8,6 @@ setup(
     license='MIT',
     author='alex',
     author_email='alex@fabricadigital.com.br',
-    description='Attach favorite menus to the list'
+    description='Attach favorite menus to the list',
+    include_package_data=True,
 )

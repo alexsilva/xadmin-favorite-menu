@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+recursive-include xplugin_menu_favorite/templates *
+recursive-include xplugin_menu_favorite/templatetags *
