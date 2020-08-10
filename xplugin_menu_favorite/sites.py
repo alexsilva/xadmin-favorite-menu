@@ -1,6 +1,6 @@
 # coding=utf-8
 import xadmin.sites
-from xadmin.views import ListAdminView
+from xadmin.views import CommAdminView
 
 
 def register(site=None):
@@ -10,4 +10,4 @@ def register(site=None):
 
     from xplugin_menu_favorite.plugin import MenuFavoritePlugin
 
-    site.register_plugin(MenuFavoritePlugin, ListAdminView)
+    site.register_plugin(MenuFavoritePlugin, CommAdminView)
