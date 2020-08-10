@@ -1,4 +1,5 @@
 from django.template.loader import render_to_string
+from xadmin.plugins.utils import get_context_dict
 from xadmin.views import BaseAdminPlugin
 
 from xplugin_menu_favorite.models import MenuFavorite
@@ -15,6 +16,20 @@ class MenuFavoritePlugin(BaseAdminPlugin):
     def init_request(self, *args, **kwargs):
         return bool(self.menu_favorite)
 
+    def block_top_toolbar(self, context, nodes):
+        """Render the button that adds menus"""
+        model = self.admin_view.model
+        queryset = MenuFavorite.objects.get_menu_for_model(model, self.request.user)
+        context = {
+            'context': context,
+            'has_menu': queryset.exists(),
+            'queryset': queryset
+        }
+        content = render_to_string("xadmin/menu_favorite/menus_btn_top_toolbar.html",
+                                   context=get_context_dict(context),
+                                   using=self.menu_favorite_template_using)
+        nodes.insert(0, content)
+
     def block_extra_slide_menu(self, context, nodes):
         """"""
         context = {
@@ -23,4 +38,4 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         }
         nodes.append(render_to_string(self.menu_favorite_template,
                                       using=self.menu_favorite_template_using,
-                                      context=context))
+                                      context=get_context_dict(context)))
