@@ -72,10 +72,13 @@ class MenuFavoriteOrderView(BaseAdminView):
     model = MenuFavorite
 
     def post(self, request, **kwargs):
-        orders = request.POST.getlist('order[]')
-        for index, instance in enumerate(self.model.objects.all()):
-            instance.order = int(orders[index])
-            instance.save()
+        order_objs = request.POST.getlist('order[]')
+        for order_value, pk in enumerate(order_objs, start=1):
+            instance = self.model.objects.get(pk=pk)
+            old_order = instance.order
+            instance.order = order_value
+            if old_order != order_value:
+                instance.save()
         return JsonResponse({
             'status': True
         })

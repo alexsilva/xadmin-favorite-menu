@@ -4,9 +4,6 @@ $(function () {
         cursor: "move",
         axis: 'y',
         items: 'li',
-        change: function (event, ui) {
-            $(ui.item).attr("data-order", "order_" + ui.item.index());
-        },
         update: function (event, ui) {
             var $rows = $(this);
             var $item = $(ui.item);
