@@ -85,6 +85,11 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         nodes.append(f'<script src="{settings.STATIC_URL + "menu_favorite/js/menu_favorite_sort.js"}"></script>')
 
     def get_media(self, media):
+        media.add_css({
+            'screen': (
+                'menu_favorite/css/styles.css',
+            )
+        })
         media.add_js((
             # Script that does the action of adding / removing menus
             'menu_favorite/js/menu_favorite.js',
