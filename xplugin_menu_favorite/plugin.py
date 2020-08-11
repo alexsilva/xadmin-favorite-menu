@@ -65,7 +65,8 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         context = {
             'context': context,
             'menus': MenuFavorite.objects.all(),
-            'menu_favorite_root_id': self.menu_favorite_root_id
+            'menu_favorite_root_id': self.menu_favorite_root_id,
+            'admin_site': self.admin_site
         }
         nodes.append(render_to_string(self.menu_favorite_template,
                                       using=self.menu_favorite_render_using,

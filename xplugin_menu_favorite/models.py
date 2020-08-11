@@ -2,6 +2,7 @@
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -19,6 +20,12 @@ class MenuFavorite(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"))
 
     objects = MenuFavoriteManager()
+
+    def get_content_url(self, app_name=None):
+        model_info = (self.content_type.app_label,
+                      self.content_type.model)
+        return reverse('xadmin:%s_%s_changelist' % model_info,
+                       current_app=app_name)
 
     class Meta:
         verbose_name = _("Favorite Menu (plugin)")

@@ -19,3 +19,8 @@ def apps(model, name):
         _get_opts(model).app_label
     )
     return getattr(app_config, name)
+
+
+@register.simple_tag
+def sites(instance, site):
+    return instance.get_content_url(site)

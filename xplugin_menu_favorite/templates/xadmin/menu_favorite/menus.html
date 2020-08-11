@@ -4,7 +4,12 @@
 <ul id="{{menu_favorite_root_id}}">
 {% endif %}
 {% for menu in menus %}
-    <li>{{menu.content_type|apps:'verbose_name'}}: {{menu.content_type|opts:'verbose_name'}}</li>
+    <li>
+        <a class="small" href="{% sites menu admin_site.app_name %}">
+            <span class="menu-app-label">{{menu.content_type.model_class|apps:'verbose_name'}}:</span>
+            {{menu.content_type.name}}
+        </a>
+    </li>
 {% endfor %}
 {% if not children %}
 </ul>
