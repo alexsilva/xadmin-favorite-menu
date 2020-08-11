@@ -8,7 +8,7 @@ from xplugin_favorite_menu.forms import MenuFavoriteForm
 from xplugin_favorite_menu.models import MenuFavorite
 
 
-class MenuFavoriteCreateView(BaseAdminView, FormView):
+class FavoriteMenuCreateView(BaseAdminView, FormView):
     """Create / Remove Menus Favorite"""
     http_method_names = ['post']
     form_class = MenuFavoriteForm
@@ -27,7 +27,7 @@ class MenuFavoriteCreateView(BaseAdminView, FormView):
         })
 
 
-class MenuFavoriteDeleteView(BaseAdminView):
+class FavoriteMenuDeleteView(BaseAdminView):
     http_method_names = ['post']
     model = MenuFavorite
 
@@ -66,7 +66,7 @@ class MenuFavoriteDeleteView(BaseAdminView):
         return response
 
 
-class MenuFavoriteOrderView(BaseAdminView):
+class FavoriteMenuOrderView(BaseAdminView):
     """Reorder the menus"""
     http_method_names = ['post']
     model = MenuFavorite

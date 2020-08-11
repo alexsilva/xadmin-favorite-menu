@@ -9,12 +9,12 @@ def register(site=None):
         site = xadmin.sites.site
 
     from xplugin_favorite_menu.plugin import MenuFavoritePlugin
-    from xplugin_favorite_menu.views import MenuFavoriteCreateView, MenuFavoriteDeleteView, MenuFavoriteOrderView
+    from xplugin_favorite_menu.views import FavoriteMenuCreateView, FavoriteMenuDeleteView, FavoriteMenuOrderView
 
     site.register_plugin(MenuFavoritePlugin, CommAdminView)
-    site.register_plugin(MenuFavoritePlugin, MenuFavoriteCreateView)
-    site.register_plugin(MenuFavoritePlugin, MenuFavoriteDeleteView)
+    site.register_plugin(MenuFavoritePlugin, FavoriteMenuCreateView)
+    site.register_plugin(MenuFavoritePlugin, FavoriteMenuDeleteView)
 
-    site.register_view('favorite-menu/add', MenuFavoriteCreateView, "favorite_menu_add")
-    site.register_view('favorite-menu/delete', MenuFavoriteDeleteView, "favorite_menu_delete")
-    site.register_view(r'favorite-menu/order/', MenuFavoriteOrderView, "favorite_menu_order")
+    site.register_view('favorite-menu/add', FavoriteMenuCreateView, "favorite_menu_add")
+    site.register_view('favorite-menu/delete', FavoriteMenuDeleteView, "favorite_menu_delete")
+    site.register_view(r'favorite-menu/order/', FavoriteMenuOrderView, "favorite_menu_order")
