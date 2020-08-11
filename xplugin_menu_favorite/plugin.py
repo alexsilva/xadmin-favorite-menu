@@ -2,7 +2,6 @@
 import json
 
 from django.contrib.contenttypes.models import ContentType
-from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
