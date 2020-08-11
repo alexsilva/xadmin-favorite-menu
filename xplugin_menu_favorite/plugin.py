@@ -22,7 +22,8 @@ class MenuFavoritePlugin(BaseAdminPlugin):
     menu_favorite = True
 
     def init_request(self, *args, **kwargs):
-        return bool(self.menu_favorite)
+        return bool(self.menu_favorite and
+                    getattr(self.admin_view, 'model', None))
 
     def form_valid(self, instance, form=None):
         """MenuFavoriteView: When a new menu is created"""
