@@ -13,6 +13,8 @@ $(function () {
         MenuFavorite.prototype.post_done = function (data, text, xhr) {
             if (data.status === true) {
                 alert('Menu added successfully!!');
+                $(this.options.target).append(data.content);
+
             }
         }
 
@@ -27,7 +29,7 @@ $(function () {
                 data: this.options.data || {},
                 dataType: "json",
                 beforeSend: this.before_send_post,
-            }).done(this.post_done).fail(this.post_fail);
+            }).done($.proxy(this.post_done, this)).fail($.proxy(this.post_fail, this));
         }
 
         //action bind

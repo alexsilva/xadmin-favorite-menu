@@ -1,9 +1,13 @@
 {% load menus %}
 
-<ul>
+{% if not children %}
+<ul id="{{menu_favorite_root_id}}">
+{% endif %}
 {% for menu in menus %}
     <li>{{menu.content_type|apps:'verbose_name'}}: {{menu.content_type|opts:'verbose_name'}}</li>
 {% empty %}
     no menus
 {% endfor %}
+{% if not children %}
 </ul>
+{% endif %}

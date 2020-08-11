@@ -12,4 +12,6 @@ def register(site=None):
     from xplugin_menu_favorite.views import MenuFavoriteView
 
     site.register_plugin(MenuFavoritePlugin, CommAdminView)
+    site.register_plugin(MenuFavoritePlugin, MenuFavoriteView)
+
     site.register_view('menu-favorite/add', MenuFavoriteView, "menu_favorite_add")

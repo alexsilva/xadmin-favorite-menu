@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.contrib.contenttypes.models import ContentType
+from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse
 from xadmin.plugins.utils import get_context_dict
@@ -14,10 +15,22 @@ class MenuFavoritePlugin(BaseAdminPlugin):
     """
     menu_favorite_template = "xadmin/menu_favorite/menus.html"
     menu_favorite_render_using = None  # template engine (def. django)
+    menu_favorite_root_id = 'menu-favorite-box'
     menu_favorite = True
 
     def init_request(self, *args, **kwargs):
         return bool(self.menu_favorite)
+
+    def form_valid(self, instance, form=None):
+        """MenuFavoriteView: When a new menu is created"""
+        context = {'menus': [instance], 'children': True}
+        content = render_to_string(self.menu_favorite_template,
+                                   context=context,
+                                   using=self.menu_favorite_render_using)
+        return JsonResponse({
+            'status': True,
+            'content': content
+        })
 
     def block_top_toolbar(self, context, nodes):
         """Render the button that adds menus"""
@@ -37,7 +50,8 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         """"""
         context = {
             'context': context,
-            'menus': MenuFavorite.objects.all()
+            'menus': MenuFavorite.objects.all(),
+            'menu_favorite_root_id': self.menu_favorite_root_id
         }
         nodes.append(render_to_string(self.menu_favorite_template,
                                       using=self.menu_favorite_render_using,
@@ -52,6 +66,7 @@ class MenuFavoritePlugin(BaseAdminPlugin):
             $(document).ready(function() {{
                 $("#btn-menu-favorite").menu_favorite({{
                     url: "{url}",
+                    target: "#{self.menu_favorite_root_id}",
                     data: {{ 
                         user: {self.request.user.pk},
                         content_type: {ctype.pk}
