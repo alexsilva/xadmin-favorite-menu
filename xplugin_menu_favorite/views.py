@@ -64,3 +64,18 @@ class MenuFavoriteDeleteView(BaseAdminView):
                 'error': "'id' is a required option"
             })
         return response
+
+
+class MenuFavoriteOrderView(BaseAdminView):
+    """Reorder the menus"""
+    http_method_names = ['post']
+    model = MenuFavorite
+
+    def post(self, request, **kwargs):
+        orders = request.POST.getlist('order[]')
+        for index, instance in enumerate(self.model.objects.all()):
+            instance.order = int(orders[index])
+            instance.save()
+        return JsonResponse({
+            'status': True
+        })

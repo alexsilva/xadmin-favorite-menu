@@ -1,6 +1,7 @@
 # coding=utf-8
 import json
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -71,17 +72,17 @@ class MenuFavoritePlugin(BaseAdminPlugin):
                 'user': self.request.user.pk,
                 'content_type': ctype.pk
             }
-        data = json.dumps(data)
         nodes.append(f"""
         <script>
             $(document).ready(function() {{
                 $("#btn-menu-favorite").menu_favorite({{
                     target: "#{self.menu_favorite_root_id}",
-                    data: {data}
+                    data: {json.dumps(data)}
                 }}).bind_click();
             }})
         </script>
         """)
+        nodes.append(f'<script src="{settings.STATIC_URL + "menu_favorite/js/menu_favorite_sort.js"}"></script>')
 
     def get_media(self, media):
         media.add_js((

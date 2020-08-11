@@ -34,7 +34,11 @@ $(function () {
         MenuFavorite.prototype.bind_click = function () {
             this.$this.click($.proxy(this.request, this));
         }
-        return new MenuFavorite(this, options);
+
+        if (!this.data('menu_favorite')) {
+            this.data('menu_favorite', new MenuFavorite(this, options));
+        }
+        return this.data('menu_favorite');
     }
 })
 ;

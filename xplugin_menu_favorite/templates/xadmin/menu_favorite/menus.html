@@ -1,10 +1,10 @@
 {% load menus %}
 
 {% if menus %}
-<ul id="{{menu_favorite_root_id}}">
+<ul id="{{menu_favorite_root_id}}" data-post-url="{% url 'xadmin:menu_favorite_order' %}">
 {% endif %}
 {% for menu in menus %}
-    <li>
+    <li data-order="order_{{menu.order}}">
         <a class="small" href="{% sites menu admin_site.app_name %}">
             <span class="menu-app-label">{{menu.content_type.model_class|apps:'verbose_name'}}:</span>
             {{menu.content_type.name}}
