@@ -8,8 +8,8 @@ from xplugin_menu_favorite.forms import MenuFavoriteForm
 
 class MenuFavoriteView(BaseAdminView, FormView):
     """"""
+    http_method_names = ['post']
     form_class = MenuFavoriteForm
-    template_name = ''
 
     def form_valid(self, form):
         return JsonResponse({
