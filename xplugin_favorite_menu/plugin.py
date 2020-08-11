@@ -49,7 +49,7 @@ class MenuFavoritePlugin(BaseAdminPlugin):
                                    using=self.menu_favorite_render_using)
         nodes.insert(0, content)
 
-    def block_menu_nav(self, context, nodes):
+    def block_menu_nav_top(self, context, nodes):
         """Displays favorite menus"""
         context = {
             'context': context,
