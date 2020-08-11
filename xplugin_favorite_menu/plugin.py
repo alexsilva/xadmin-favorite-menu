@@ -9,7 +9,7 @@ from django.utils.functional import cached_property
 from xadmin.plugins.utils import get_context_dict
 from xadmin.views import BaseAdminPlugin
 
-from xplugin_favorite_menu.models import MenuFavorite
+from xplugin_favorite_menu.models import FavoriteMenu
 
 
 class MenuFavoritePlugin(BaseAdminPlugin):
@@ -27,7 +27,7 @@ class MenuFavoritePlugin(BaseAdminPlugin):
 
     def _get_menu_queryset(self):
         """Queryset containing the existing menu"""
-        return MenuFavorite.objects.get_menu_for_model(self.model,
+        return FavoriteMenu.objects.get_menu_for_model(self.model,
                                                        self.request.user)
 
     @cached_property
@@ -53,7 +53,7 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         """Displays favorite menus"""
         context = {
             'context': context,
-            'menus': MenuFavorite.objects.all(),
+            'menus': FavoriteMenu.objects.all(),
             'favorite_menu_root_id': self.favorite_menu_root_id,
             'admin_site': self.admin_site
         }

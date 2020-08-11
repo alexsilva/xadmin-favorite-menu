@@ -5,7 +5,7 @@ from django.views.generic import FormView
 from xadmin.views import BaseAdminView, filter_hook
 
 from xplugin_favorite_menu.forms import MenuFavoriteForm
-from xplugin_favorite_menu.models import MenuFavorite
+from xplugin_favorite_menu.models import FavoriteMenu
 
 
 class FavoriteMenuCreateView(BaseAdminView, FormView):
@@ -29,7 +29,7 @@ class FavoriteMenuCreateView(BaseAdminView, FormView):
 
 class FavoriteMenuDeleteView(BaseAdminView):
     http_method_names = ['post']
-    model = MenuFavorite
+    model = FavoriteMenu
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -69,7 +69,7 @@ class FavoriteMenuDeleteView(BaseAdminView):
 class FavoriteMenuOrderView(BaseAdminView):
     """Reorder the menus"""
     http_method_names = ['post']
-    model = MenuFavorite
+    model = FavoriteMenu
 
     def post(self, request, **kwargs):
         order_objs = request.POST.getlist('order[]')
