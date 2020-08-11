@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-11 19:28-0300\n"
+"POT-Creation-Date: 2020-08-11 19:32-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,3 +33,11 @@ msgstr "Usuário"
 #: .\models.py:31
 msgid "Favorite Menu (plugin)"
 msgstr "Menu favorito (plugin)"
+
+#: .\templates\xadmin\favorite_menu\menus_btn_top_toolbar.html:6
+msgid "Remove favorite menu"
+msgstr "Remover menu favorito"
+
+#: .\templates\xadmin\favorite_menu\menus_btn_top_toolbar.html:9
+msgid "Add favorite menu"
+msgstr "Adicionar menu favorito"
