@@ -3,3 +3,4 @@ include README.md
 recursive-include xplugin_favorite_menu/templates *
 recursive-include xplugin_favorite_menu/templatetags *
 recursive-include xplugin_favorite_menu/static *
+recursive-include xplugin_favorite_menu/locale *
