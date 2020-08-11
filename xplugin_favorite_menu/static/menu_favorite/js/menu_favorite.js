@@ -13,11 +13,13 @@ $(function () {
         MenuFavorite.prototype.post_done = function (data, text, xhr) {
             if (data.status === true) {
                 location.reload(true);
+            } else {
+                alert(gettext("failed to create/delete menu."));
             }
         }
 
         MenuFavorite.prototype.post_fail = function (xhr) {
-            console.log(xhr);
+            alert(gettext("failed to create/delete menu."));
         }
 
         MenuFavorite.prototype.request = function () {
