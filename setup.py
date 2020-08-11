@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='xadmin-menu-favorite',
+    name='xadmin-favorite-menu',
     version='1.0.0',
     packages=['xplugin_favorite_menu'],
     url='https://github.com/alexsilva/xadmin-menu-favorite',

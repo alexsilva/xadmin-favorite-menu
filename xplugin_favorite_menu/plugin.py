@@ -16,7 +16,7 @@ class MenuFavoritePlugin(BaseAdminPlugin):
     """
     Plugin that allows you to add favorite menus to the site menu
     """
-    menu_favorite_template = "xadmin/menu_favorite/menus.html"
+    menu_favorite_template = "xadmin/favorite_menu/menus.html"
     menu_favorite_render_using = None  # template engine (def. django)
     menu_favorite_root_id = 'menu-favorite-box'
     menu_favorite = True
@@ -44,7 +44,7 @@ class MenuFavoritePlugin(BaseAdminPlugin):
             'queryset': self.menu_queryset,
             'ajax_url': ajax_url
         }
-        content = render_to_string("xadmin/menu_favorite/menus_btn_top_toolbar.html",
+        content = render_to_string("xadmin/favorite_menu/menus_btn_top_toolbar.html",
                                    context=get_context_dict(context),
                                    using=self.menu_favorite_render_using)
         nodes.insert(0, content)
@@ -75,23 +75,23 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         nodes.append(f"""
         <script>
             $(document).ready(function() {{
-                $("#btn-menu-favorite").menu_favorite({{
+                $("#btn-menu-favorite").favorite_menu({{
                     target: "#{self.menu_favorite_root_id}",
                     data: {json.dumps(data)}
                 }}).bind_click();
             }})
         </script>
         """)
-        nodes.append(f'<script src="{settings.STATIC_URL + "menu_favorite/js/menu_favorite_sort.js"}"></script>')
+        nodes.append(f'<script src="{settings.STATIC_URL + "favorite_menu/js/favorite_menu_sort.js"}"></script>')
 
     def get_media(self, media):
         media.add_css({
             'screen': (
-                'menu_favorite/css/styles.css',
+                'favorite_menu/css/styles.css',
             )
         })
         media.add_js((
             # Script that does the action of adding / removing menus
-            'menu_favorite/js/menu_favorite.js',
+            'favorite_menu/js/favorite_menu.js',
         ))
         return media
