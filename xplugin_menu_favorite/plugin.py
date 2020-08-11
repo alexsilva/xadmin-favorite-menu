@@ -1,4 +1,7 @@
+# coding=utf-8
+from django.contrib.contenttypes.models import ContentType
 from django.template.loader import render_to_string
+from django.urls import reverse
 from xadmin.plugins.utils import get_context_dict
 from xadmin.views import BaseAdminPlugin
 
@@ -39,6 +42,24 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         nodes.append(render_to_string(self.menu_favorite_template,
                                       using=self.menu_favorite_template_using,
                                       context=get_context_dict(context)))
+
+    def block_extrabody(self, context, nodes):
+        # Initializes the object that adds menus.
+        ctype = ContentType.objects.get_for_model(self.model)
+        url = reverse("xadmin:menu_favorite_add")
+        nodes.append(f"""
+        <script>
+            $(document).ready(function() {{
+                $("#btn-menu-favorite").menu_favorite({{
+                    url: "{url}",
+                    data: {{ 
+                        user: {self.request.user.pk},
+                        content_type: {ctype.pk}
+                    }}
+                }}).bind_click();
+            }})
+        </script>
+        """)
 
     def get_media(self, media):
         media.add_js((
