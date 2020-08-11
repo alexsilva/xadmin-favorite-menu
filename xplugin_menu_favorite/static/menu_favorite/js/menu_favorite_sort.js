@@ -2,17 +2,18 @@ $(function () {
     var menu = $("#btn-menu-favorite").data('menu_favorite');
     $(menu.options.target).sortable({
         cursor: "move",
+        axis: 'y',
+        items: 'li',
         change: function (event, ui) {
             $(ui.item).attr("data-order", "order_" + ui.item.index());
         },
         update: function (event, ui) {
             var $rows = $(this);
-            var $item = ui.item;
+            var $item = $(ui.item);
             var data = $rows.sortable('serialize', {
                 attribute: 'data-order',
                 expression: (/(.+)_(\d+)/),
             });
-            console.log(data)
             $item.addClass('disabled');
             $.ajax({
                 url: $rows.data('post-url'),
