@@ -25,13 +25,6 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         return bool(self.menu_favorite and
                     getattr(self.admin_view, 'model', None))
 
-    def form_valid(self, instance, form=None):
-        """MenuFavoriteView: When a new menu is created"""
-        return JsonResponse({
-            'status': True,
-            'create': True
-        })
-
     def _get_menu_queryset(self):
         """Queryset containing the existing menu"""
         return MenuFavorite.objects.get_menu_for_model(self.model,

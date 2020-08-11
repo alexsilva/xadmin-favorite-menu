@@ -16,7 +16,10 @@ class MenuFavoriteCreateView(BaseAdminView, FormView):
     @filter_hook
     def form_valid(self, form):
         instance = form.save()
-        return instance
+        return JsonResponse({
+            'status': True,
+            'create': True
+        })
 
     def form_invalid(self, form):
         return JsonResponse({
