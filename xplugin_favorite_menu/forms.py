@@ -1,7 +1,7 @@
 # coding=utf-8
 from django import forms
 
-from xplugin_menu_favorite.models import MenuFavorite
+from xplugin_favorite_menu.models import MenuFavorite
 
 
 class MenuFavoriteForm(forms.ModelForm):

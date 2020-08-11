@@ -4,8 +4,8 @@ from django.utils.functional import cached_property
 from django.views.generic import FormView
 from xadmin.views import BaseAdminView, filter_hook
 
-from xplugin_menu_favorite.forms import MenuFavoriteForm
-from xplugin_menu_favorite.models import MenuFavorite
+from xplugin_favorite_menu.forms import MenuFavoriteForm
+from xplugin_favorite_menu.models import MenuFavorite
 
 
 class MenuFavoriteCreateView(BaseAdminView, FormView):

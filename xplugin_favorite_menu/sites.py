@@ -8,8 +8,8 @@ def register(site=None):
     if site is None:
         site = xadmin.sites.site
 
-    from xplugin_menu_favorite.plugin import MenuFavoritePlugin
-    from xplugin_menu_favorite.views import MenuFavoriteCreateView, MenuFavoriteDeleteView, MenuFavoriteOrderView
+    from xplugin_favorite_menu.plugin import MenuFavoritePlugin
+    from xplugin_favorite_menu.views import MenuFavoriteCreateView, MenuFavoriteDeleteView, MenuFavoriteOrderView
 
     site.register_plugin(MenuFavoritePlugin, CommAdminView)
     site.register_plugin(MenuFavoritePlugin, MenuFavoriteCreateView)

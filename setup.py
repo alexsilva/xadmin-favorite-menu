@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='xadmin-menu-favorite',
     version='1.0.0',
-    packages=['xplugin_menu_favorite'],
+    packages=['xplugin_favorite_menu'],
     url='https://github.com/alexsilva/xadmin-menu-favorite',
     license='MIT',
     author='alex',

@@ -9,7 +9,7 @@ from django.utils.functional import cached_property
 from xadmin.plugins.utils import get_context_dict
 from xadmin.views import BaseAdminPlugin
 
-from xplugin_menu_favorite.models import MenuFavorite
+from xplugin_favorite_menu.models import MenuFavorite
 
 
 class MenuFavoritePlugin(BaseAdminPlugin):
