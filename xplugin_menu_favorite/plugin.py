@@ -26,13 +26,8 @@ class MenuFavoritePlugin(BaseAdminPlugin):
 
     def form_valid(self, instance, form=None):
         """MenuFavoriteView: When a new menu is created"""
-        context = {'menus': [instance], 'children': True}
-        content = render_to_string(self.menu_favorite_template,
-                                   context=context,
-                                   using=self.menu_favorite_render_using)
         return JsonResponse({
             'status': True,
-            'content': content,
             'create': True
         })
 

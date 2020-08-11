@@ -1,6 +1,6 @@
 {% load menus %}
 
-{% if not children %}
+{% if menus %}
 <ul id="{{menu_favorite_root_id}}">
 {% endif %}
 {% for menu in menus %}
@@ -11,6 +11,6 @@
         </a>
     </li>
 {% endfor %}
-{% if not children %}
+{% if menus %}
 </ul>
 {% endif %}

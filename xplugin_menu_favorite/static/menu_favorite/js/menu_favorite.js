@@ -13,7 +13,6 @@ $(function () {
         MenuFavorite.prototype.post_done = function (data, text, xhr) {
             if (data.status === true) {
                 location.reload(true);
-                $(this.options.target).append(data.content);
             }
         }
 
