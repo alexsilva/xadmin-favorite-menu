@@ -16,13 +16,13 @@ class MenuFavoritePlugin(BaseAdminPlugin):
     """
     Plugin that allows you to add favorite menus to the site menu
     """
-    menu_favorite_template = "xadmin/favorite_menu/menus.html"
-    menu_favorite_render_using = None  # template engine (def. django)
-    menu_favorite_root_id = 'menu-favorite-box'
-    menu_favorite = True
+    favorite_menu_template = "xadmin/favorite_menu/menus.html"
+    favorite_menu_render_using = None  # template engine (def. django)
+    favorite_menu_root_id = 'favorite-menu-box'
+    favorite_menu = True
 
     def init_request(self, *args, **kwargs):
-        return bool(self.menu_favorite and
+        return bool(self.favorite_menu and
                     getattr(self.admin_view, 'model', None))
 
     def _get_menu_queryset(self):
@@ -37,7 +37,7 @@ class MenuFavoritePlugin(BaseAdminPlugin):
     def block_top_toolbar(self, context, nodes):
         """Render the button that adds menus"""
         has_menu = self.menu_queryset.exists()
-        ajax_url = reverse("xadmin:menu_favorite_{}".format("delete" if has_menu else "add"))
+        ajax_url = reverse("xadmin:favorite_menu_{}".format("delete" if has_menu else "add"))
         context = {
             'context': context,
             'has_menu': has_menu,
@@ -46,7 +46,7 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         }
         content = render_to_string("xadmin/favorite_menu/menus_btn_top_toolbar.html",
                                    context=get_context_dict(context),
-                                   using=self.menu_favorite_render_using)
+                                   using=self.favorite_menu_render_using)
         nodes.insert(0, content)
 
     def block_menu_nav_top(self, context, nodes):
@@ -54,11 +54,11 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         context = {
             'context': context,
             'menus': MenuFavorite.objects.all(),
-            'menu_favorite_root_id': self.menu_favorite_root_id,
+            'favorite_menu_root_id': self.favorite_menu_root_id,
             'admin_site': self.admin_site
         }
-        nodes.append(render_to_string(self.menu_favorite_template,
-                                      using=self.menu_favorite_render_using,
+        nodes.append(render_to_string(self.favorite_menu_template,
+                                      using=self.favorite_menu_render_using,
                                       context=get_context_dict(context)))
 
     def block_extrabody(self, context, nodes):
@@ -75,8 +75,8 @@ class MenuFavoritePlugin(BaseAdminPlugin):
         nodes.append(f"""
         <script>
             $(document).ready(function() {{
-                $("#btn-menu-favorite").favorite_menu({{
-                    target: "#{self.menu_favorite_root_id}",
+                $("#btn-favorite-menu").favorite_menu({{
+                    target: "#{self.favorite_menu_root_id}",
                     data: {json.dumps(data)}
                 }}).bind_click();
             }})

@@ -1,5 +1,5 @@
 $(function () {
-    $.fn.menu_favorite = function (options) {
+    $.fn.favorite_menu = function (options) {
         var MenuFavorite = function ($this, options) {
             this.$this = $this;
             this.options = options;
@@ -37,10 +37,10 @@ $(function () {
             this.$this.click($.proxy(this.request, this));
         }
 
-        if (!this.data('menu_favorite')) {
-            this.data('menu_favorite', new MenuFavorite(this, options));
+        if (!this.data('favorite_menu')) {
+            this.data('favorite_menu', new MenuFavorite(this, options));
         }
-        return this.data('menu_favorite');
+        return this.data('favorite_menu');
     }
 })
 ;

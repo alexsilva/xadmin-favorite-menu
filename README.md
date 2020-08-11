@@ -1,2 +1,2 @@
-# xadmin-menu-favorite
+# xadmin-favorite-menu
 Attach menus to the list.

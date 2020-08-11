@@ -15,6 +15,6 @@ def register(site=None):
     site.register_plugin(MenuFavoritePlugin, MenuFavoriteCreateView)
     site.register_plugin(MenuFavoritePlugin, MenuFavoriteDeleteView)
 
-    site.register_view('menu-favorite/add', MenuFavoriteCreateView, "menu_favorite_add")
-    site.register_view('menu-favorite/delete', MenuFavoriteDeleteView, "menu_favorite_delete")
-    site.register_view(r'menu-favorite/order/', MenuFavoriteOrderView, "menu_favorite_order")
+    site.register_view('favorite-menu/add', MenuFavoriteCreateView, "favorite_menu_add")
+    site.register_view('favorite-menu/delete', MenuFavoriteDeleteView, "favorite_menu_delete")
+    site.register_view(r'favorite-menu/order/', MenuFavoriteOrderView, "favorite_menu_order")
