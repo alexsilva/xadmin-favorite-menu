@@ -14,7 +14,7 @@ class MenuFavoriteManager(models.Manager):
 
 class MenuFavorite(models.Model):
     """Stores data about the created menus"""
-    order = models.PositiveIntegerField(verbose_name=_("Order"))
+    order = models.PositiveIntegerField(verbose_name=_("Order"), default=0)
     content_type = models.ForeignKey(ContentType, verbose_name=_("Content"))
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"))
 
