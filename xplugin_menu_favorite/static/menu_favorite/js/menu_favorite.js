@@ -12,9 +12,8 @@ $(function () {
 
         MenuFavorite.prototype.post_done = function (data, text, xhr) {
             if (data.status === true) {
-                alert('Menu added successfully!!');
+                location.reload(true);
                 $(this.options.target).append(data.content);
-
             }
         }
 
@@ -25,7 +24,7 @@ $(function () {
         MenuFavorite.prototype.request = function () {
             return $.ajax({
                 type: "POST",
-                url: this.options.url,
+                url: this.$this.data('ajax-url'),
                 data: this.options.data || {},
                 dataType: "json",
                 beforeSend: this.before_send_post,

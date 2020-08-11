@@ -1,11 +1,11 @@
 <div class="btn-group">
-    <a class="btn btn-sm btn-link pull-right" id="btn-menu-favorite">
-        {% if has_menu %}
-            <i class="fa fa-minus"></i>
-            Remove favorite menu
-        {% else %}
-            <i class="fa fa-plus"></i>
-            Add favorite menu
-        {% endif %}
+    <a class="btn btn-sm btn-link pull-right" id="btn-menu-favorite" data-ajax-url="{{ajax_url}}">
+    {% if has_menu %}
+        <i class="fa fa-minus"></i>
+        Remove favorite menu
+    {% else %}
+        <i class="fa fa-plus"></i>
+        Add favorite menu
+    {% endif %}
     </a>
 </div>

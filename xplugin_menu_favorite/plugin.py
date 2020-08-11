@@ -1,8 +1,11 @@
 # coding=utf-8
+import json
+
 from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.functional import cached_property
 from xadmin.plugins.utils import get_context_dict
 from xadmin.views import BaseAdminPlugin
 
@@ -29,17 +32,28 @@ class MenuFavoritePlugin(BaseAdminPlugin):
                                    using=self.menu_favorite_render_using)
         return JsonResponse({
             'status': True,
-            'content': content
+            'content': content,
+            'create': True
         })
+
+    def _get_menu_queryset(self):
+        """Queryset containing the existing menu"""
+        return MenuFavorite.objects.get_menu_for_model(self.model,
+                                                       self.request.user)
+
+    @cached_property
+    def menu_queryset(self):
+        return self._get_menu_queryset()
 
     def block_top_toolbar(self, context, nodes):
         """Render the button that adds menus"""
-        model = self.admin_view.model
-        queryset = MenuFavorite.objects.get_menu_for_model(model, self.request.user)
+        has_menu = self.menu_queryset.exists()
+        ajax_url = reverse("xadmin:menu_favorite_{}".format("delete" if has_menu else "add"))
         context = {
             'context': context,
-            'has_menu': queryset.exists(),
-            'queryset': queryset
+            'has_menu': has_menu,
+            'queryset': self.menu_queryset,
+            'ajax_url': ajax_url
         }
         content = render_to_string("xadmin/menu_favorite/menus_btn_top_toolbar.html",
                                    context=get_context_dict(context),
@@ -59,18 +73,22 @@ class MenuFavoritePlugin(BaseAdminPlugin):
 
     def block_extrabody(self, context, nodes):
         # Initializes the object that adds menus.
-        ctype = ContentType.objects.get_for_model(self.model)
-        url = reverse("xadmin:menu_favorite_add")
+        has_menu = self.menu_queryset.exists()
+        if has_menu:
+            data = {'id': self.menu_queryset.first().pk}
+        else:
+            ctype = ContentType.objects.get_for_model(self.model)
+            data = {
+                'user': self.request.user.pk,
+                'content_type': ctype.pk
+            }
+        data = json.dumps(data)
         nodes.append(f"""
         <script>
             $(document).ready(function() {{
                 $("#btn-menu-favorite").menu_favorite({{
-                    url: "{url}",
                     target: "#{self.menu_favorite_root_id}",
-                    data: {{ 
-                        user: {self.request.user.pk},
-                        content_type: {ctype.pk}
-                    }}
+                    data: {data}
                 }}).bind_click();
             }})
         </script>
