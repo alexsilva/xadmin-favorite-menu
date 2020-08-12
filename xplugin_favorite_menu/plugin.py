@@ -58,9 +58,12 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
 
     def block_menu_nav_top(self, context, nodes):
         """Displays favorite menus"""
+        queryset = FavoriteMenu.objects.filter(user=self.request.user)
+        if hasattr(self.admin_view, 'favorite_menu_filter'):
+            queryset = self.admin_view.favorite_menu_filter(queryset, context)
         context = {
             'context': context,
-            'menus': FavoriteMenu.objects.filter(user=self.request.user),
+            'menus': queryset,
             'favorite_menu_root_id': self.favorite_menu_root_id,
             'admin_site': self.admin_site
         }
