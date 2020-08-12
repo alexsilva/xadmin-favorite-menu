@@ -31,17 +31,22 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
                                                        self.request.user)
 
     @cached_property
-    def menu_queryset(self):
-        return self._get_menu_queryset()
+    def ctx_menu(self):
+        """The view model menu in context"""
+        return self._get_menu_queryset().first()
+
+    @cached_property
+    def has_menu(self):
+        """If there is a menu assigned to the view model in the context"""
+        return bool(self.ctx_menu)
 
     def block_top_toolbar(self, context, nodes):
         """Render the button that adds menus"""
-        has_menu = self.menu_queryset.exists()
-        ajax_url = reverse("xadmin:favorite_menu_{}".format("delete" if has_menu else "add"))
+        ajax_url = reverse("xadmin:favorite_menu_{}".format("delete" if self.has_menu else "add"))
         context = {
             'context': context,
-            'has_menu': has_menu,
-            'queryset': self.menu_queryset,
+            'has_menu': self.has_menu,
+            'menu': self.ctx_menu,
             'ajax_url': ajax_url
         }
         content = render_to_string("xadmin/favorite_menu/menus_btn_top_toolbar.html",
@@ -63,9 +68,8 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
 
     def block_extrabody(self, context, nodes):
         # Initializes the object that adds menus.
-        has_menu = self.menu_queryset.exists()
-        if has_menu:
-            data = {'id': self.menu_queryset.first().pk}
+        if self.has_menu:
+            data = {'id': self.ctx_menu.pk}
         else:
             ctype = ContentType.objects.get_for_model(self.model)
             data = {
