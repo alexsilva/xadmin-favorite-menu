@@ -22,13 +22,15 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
     favorite_menu = True
 
     def init_request(self, *args, **kwargs):
-        return bool(self.favorite_menu and
-                    getattr(self.admin_view, 'model', None))
+        return bool(self.favorite_menu)
 
     def _get_menu_queryset(self):
         """Queryset containing the existing menu"""
-        return FavoriteMenu.objects.get_menu_for_model(self.model,
-                                                       self.request.user)
+        if hasattr(self, 'model'):
+            return FavoriteMenu.objects.get_menu_for_model(self.model,
+                                                           self.request.user)
+        else:
+            return FavoriteMenu.objects.none()
 
     @cached_property
     def ctx_menu(self):
@@ -67,6 +69,8 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
                                       context=get_context_dict(context)))
 
     def block_extrabody(self, context, nodes):
+        if not hasattr(self, 'model'):
+            return
         # Initializes the object that adds menus.
         if self.has_menu:
             data = {'id': self.ctx_menu.pk}
