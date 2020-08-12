@@ -53,7 +53,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
         """Displays favorite menus"""
         context = {
             'context': context,
-            'menus': FavoriteMenu.objects.all(),
+            'menus': FavoriteMenu.objects.filter(user=self.request.user),
             'favorite_menu_root_id': self.favorite_menu_root_id,
             'admin_site': self.admin_site
         }
