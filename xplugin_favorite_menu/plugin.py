@@ -12,7 +12,7 @@ from xadmin.views import BaseAdminPlugin
 from xplugin_favorite_menu.models import FavoriteMenu
 
 
-class MenuFavoritePlugin(BaseAdminPlugin):
+class FavoriteMenuPlugin(BaseAdminPlugin):
     """
     Plugin that allows you to add favorite menus to the site menu
     """
