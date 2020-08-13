@@ -23,13 +23,21 @@ $(function () {
         }
 
         MenuFavorite.prototype.request = function () {
+            var self = this;
+            this.$this.addClass("disabled");
             return $.ajax({
                 type: "POST",
                 url: this.$this.data('ajax-url'),
                 data: this.options.data || {},
                 dataType: "json",
                 beforeSend: this.before_send_post,
-            }).done($.proxy(this.post_done, this)).fail($.proxy(this.post_fail, this));
+            }).done(
+                $.proxy(this.post_done, this)
+            ).fail(
+                $.proxy(this.post_fail, this)
+            ).always(function() {
+                self.$this.removeClass("disabled");
+            });
         }
 
         //action bind
