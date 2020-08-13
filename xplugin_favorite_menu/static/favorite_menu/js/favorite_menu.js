@@ -40,6 +40,11 @@ $(function () {
             });
         }
 
+        // get option value by name
+        MenuFavorite.prototype.get_option = function (name){
+            return this.options[name];
+        }
+
         //action bind
         MenuFavorite.prototype.bind_click = function () {
             this.$this.click($.proxy(this.request, this));
