@@ -24,9 +24,14 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
     def init_request(self, *args, **kwargs):
         return bool(self.favorite_menu)
 
+    @cached_property
+    def has_valid_context(self):
+        """It only loads scripts under these conditions"""
+        return bool(hasattr(self, 'model') and not getattr(self.admin_view, 'org_obj', None))
+
     def _get_menu_queryset(self):
         """Queryset containing the existing menu"""
-        if hasattr(self, 'model'):
+        if self.has_valid_context:
             return FavoriteMenu.objects.get_menu_for_model(self.model,
                                                            self.request.user)
         else:
@@ -72,7 +77,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
                                       context=get_context_dict(context)))
 
     def block_extrabody(self, context, nodes):
-        if not hasattr(self, 'model'):
+        if not self.has_valid_context:
             return
         # Initializes the object that adds menus.
         if self.has_menu:
