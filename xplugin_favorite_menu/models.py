@@ -18,7 +18,9 @@ class FavoriteMenu(models.Model):
     order = models.PositiveIntegerField(verbose_name=_("Order"), default=0)
     content_type = models.ForeignKey(ContentType, verbose_name=_("Content"))
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("User"))
-
+    removed = models.BooleanField(verbose_name=_("Removed"),
+                                  default=False,
+                                  editable=False)
     objects = FavoriteMenuManager()
 
     def get_content_url(self, app_name=None):
