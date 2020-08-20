@@ -49,7 +49,9 @@ class FavoriteMenuDeleteView(BaseAdminView):
         redirects to the success URL.
         """
         self.object = self.get_object()
-        self.object.delete()
+        if not self.object.removed:
+            self.object.removed = True
+            self.object.save()
         return JsonResponse({
             'status': True,
             'delete': True

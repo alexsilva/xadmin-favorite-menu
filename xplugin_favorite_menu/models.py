@@ -8,9 +8,10 @@ from django.utils.translation import ugettext_lazy as _
 
 class FavoriteMenuManager(models.Manager):
 
-    def get_menu_for_model(self, model, user):
+    def get_menu_for_model(self, model, user, **kwargs):
         return self.filter(content_type=ContentType.objects.get_for_model(model),
-                           user=user)
+                           user=user,
+                           **kwargs)
 
 
 class FavoriteMenu(models.Model):

@@ -33,7 +33,8 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
         """Queryset containing the existing menu"""
         if self.has_valid_context:
             return FavoriteMenu.objects.get_menu_for_model(self.model,
-                                                           self.request.user)
+                                                           self.request.user,
+                                                           removed=False)
         else:
             return FavoriteMenu.objects.none()
 
@@ -63,7 +64,8 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
 
     def block_menu_nav_top(self, context, nodes):
         """Displays favorite menus"""
-        queryset = FavoriteMenu.objects.filter(user=self.request.user)
+        queryset = FavoriteMenu.objects.filter(user=self.request.user,
+                                               removed=False)
         if hasattr(self.admin_view, 'favorite_menu_filter'):
             queryset = self.admin_view.favorite_menu_filter(queryset, context)
         context = {

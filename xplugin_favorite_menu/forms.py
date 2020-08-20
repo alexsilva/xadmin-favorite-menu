@@ -11,3 +11,17 @@ class MenuFavoriteForm(forms.ModelForm):
         exclude = (
             'order',
         )
+
+    def save(self, commit=True):
+        opts = self._meta
+        try:
+            instance = opts.model.objects.get(
+                content_type=self.cleaned_data['content_type'],
+                user=self.cleaned_data['user']
+            )
+            instance.removed = False
+            if commit:
+                instance.save()
+        except opts.model.DoesNotExist:  # create a new instance
+            instance = super(MenuFavoriteForm, self).save(commit=commit)
+        return instance
