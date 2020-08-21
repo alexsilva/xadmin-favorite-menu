@@ -38,6 +38,11 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
         else:
             return FavoriteMenu.objects.none()
 
+    def get_menu_options(self, menu_options):
+        """related: FavoriteMenuOptionsView"""
+        menu_options['target'] = self.favorite_menu_root_id
+        return menu_options
+
     @cached_property
     def ctx_menu(self):
         """The view model menu in context"""
@@ -91,17 +96,16 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
                 'content_type': ctype.pk
             }
         nodes.append(f"""
-        <script>
+        <script type='application/javascript'>
             $(document).ready(function() {{
                 var $favorite_menu = $("#btn-favorite-menu").favorite_menu({{
-                    target: "#{self.favorite_menu_root_id}",
+                    target: "#" + favorite_menu_options.target,
                     data: {json.dumps(data)}
                 }});
                 if ($favorite_menu) {{ $favorite_menu.bind_click() }};
             }})
         </script>
         """)
-        nodes.append(f'<script src="{settings.STATIC_URL + "favorite_menu/js/favorite_menu_sort.js"}"></script>')
 
     def get_media(self, media):
         media.add_css({
@@ -109,8 +113,10 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
                 'favorite_menu/css/styles.css',
             )
         })
-        media.add_js((
+        js = [reverse(f'{self.admin_site.app_name}:favorite_menu_settings')]
+        if self.has_valid_context:
             # Script that does the action of adding / removing menus
-            'favorite_menu/js/favorite_menu.js',
-        ))
+            js.append('favorite_menu/js/favorite_menu.js')
+        js.append('favorite_menu/js/favorite_menu_sort.js')
+        media.add_js(js)
         return media
