@@ -93,10 +93,11 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
         nodes.append(f"""
         <script>
             $(document).ready(function() {{
-                $("#btn-favorite-menu").favorite_menu({{
+                var $favorite_menu = $("#btn-favorite-menu").favorite_menu({{
                     target: "#{self.favorite_menu_root_id}",
                     data: {json.dumps(data)}
-                }}).bind_click();
+                }});
+                if ($favorite_menu) {{ $favorite_menu.bind_click() }};
             }})
         </script>
         """)

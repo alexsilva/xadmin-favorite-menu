@@ -1,6 +1,6 @@
 $(function () {
-    var menu = $("#btn-favorite-menu").data('favorite_menu');
-    $(menu.get_option('target')).sortable({
+    var $favorite_menu = $("#btn-favorite-menu").data('favorite_menu');
+    $($favorite_menu && $favorite_menu.get_option('target')).sortable({
         cursor: "move",
         axis: 'y',
         items: 'li',
