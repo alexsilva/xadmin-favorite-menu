@@ -1,4 +1,6 @@
 # coding=utf-8
+import json
+
 from django.http import JsonResponse, HttpResponse
 from django.utils.functional import cached_property
 from django.views.generic import FormView
@@ -11,7 +13,7 @@ from xplugin_favorite_menu.models import FavoriteMenu
 class FavoriteMenuOptionsView(BaseAdminView):
 
     def get(self, request, **kwargs):
-        menu_options = self.get_menu_options()
+        menu_options = json.dumps(self.get_menu_options())
         script_js = f"""var favorite_menu_options={menu_options}"""
         return HttpResponse(script_js, content_type='application/javascript')
 
