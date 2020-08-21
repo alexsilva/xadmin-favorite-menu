@@ -16,8 +16,7 @@ $(document).ready(function () {
                 url: $rows.data('post-url'),
                 method: 'POST',
                 beforeSend: function(xhr, settings) {
-                    var csrftoken = $("input[name='csrfmiddlewaretoken']").val();
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    xhr.setRequestHeader("X-CSRFToken", $.getCookie('csrftoken'));
                 },
                 data: data
             }).done(function () {

@@ -6,8 +6,7 @@ $(function () {
         }
 
         MenuFavorite.prototype.before_send_post = function (xhr, settings) {
-            var csrftoken = $("input[name='csrfmiddlewaretoken']").val();
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            xhr.setRequestHeader("X-CSRFToken", $.getCookie('csrftoken'));
         }
 
         MenuFavorite.prototype.post_done = function (data, text, xhr) {
