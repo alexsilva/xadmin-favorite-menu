@@ -3,6 +3,7 @@ import json
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
+from django.forms import Media
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -108,15 +109,14 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
         """)
 
     def get_media(self, media):
-        media.add_css({
-            'screen': (
-                'favorite_menu/css/styles.css',
-            )
-        })
         js = [reverse(f'{self.admin_site.app_name}:favorite_menu_settings')]
         if self.has_valid_context:
             # Script that does the action of adding / removing menus
             js.append('favorite_menu/js/favorite_menu.js')
         js.append('favorite_menu/js/favorite_menu_sort.js')
-        media.add_js(js)
+        media += Media(css={
+            'screen': (
+                'favorite_menu/css/styles.css',
+            )
+        }, js=js)
         return media
