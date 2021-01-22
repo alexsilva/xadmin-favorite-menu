@@ -1,7 +1,6 @@
 # coding=utf-8
 import json
 
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.forms import Media
 from django.template.loader import render_to_string
@@ -28,7 +27,11 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
     @cached_property
     def has_valid_context(self):
         """It only loads scripts under these conditions"""
-        return bool(hasattr(self, 'model') and not getattr(self.admin_view, 'org_obj', None))
+        valid = bool(hasattr(self, 'model') and
+                     not getattr(self.admin_view, 'org_obj', None))
+        if valid and hasattr(self.admin_view, 'favorite_menu_permission'):
+            valid &= bool(self.admin_view.favorite_menu_permission())
+        return valid
 
     def _get_menu_queryset(self):
         """Queryset containing the existing menu"""
@@ -56,6 +59,8 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
 
     def block_top_toolbar(self, context, nodes):
         """Render the button that adds menus"""
+        if not self.has_valid_context:
+            return
         ajax_url = reverse("xadmin:favorite_menu_{}".format("delete" if self.has_menu else "add"))
         context = {
             'context': context,
