@@ -1,6 +1,6 @@
 $(function () {
-    var MenuFavorite = function ($this, options) {
-        this.$this = $this;
+    var MenuFavorite = function ($el, options) {
+        this.$el = $el;
         this.options = options;
     }
 
@@ -22,10 +22,10 @@ $(function () {
 
     MenuFavorite.prototype.request = function () {
         var self = this;
-        this.$this.addClass("disabled");
+        this.$el.addClass("disabled");
         return $.ajax({
             type: "POST",
-            url: this.$this.data('ajax-url'),
+            url: this.$el.data('ajax-url'),
             data: this.options.data || {},
             dataType: "json",
             beforeSend: this.before_send_post,
@@ -34,7 +34,7 @@ $(function () {
         ).fail(
             $.proxy(this.post_fail, this)
         ).always(function () {
-            self.$this.removeClass("disabled");
+            self.$el.removeClass("disabled");
         });
     }
 
@@ -45,7 +45,7 @@ $(function () {
 
     //action bind
     MenuFavorite.prototype.bind_click = function () {
-        this.$this.click($.proxy(this.request, this));
+        this.$el.click($.proxy(this.request, this));
     }
 
     $.fn.favorite_menu = function (options) {
