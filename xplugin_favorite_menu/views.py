@@ -87,8 +87,14 @@ class FavoriteMenuOrderView(BaseAdminView):
     http_method_names = ['post']
     model = FavoriteMenu
 
+    @staticmethod
+    def get_list(request, name):
+        options = request.POST
+        return (options.getlist(name) or
+                options.getlist(f'{name}[]'))
+
     def post(self, request, **kwargs):
-        order_objs = request.POST.getlist('order[]')
+        order_objs = self.get_list(request, 'order')
         for order_value, pk in enumerate(order_objs, start=1):
             instance = self.model.objects.get(pk=pk)
             old_order = instance.order
