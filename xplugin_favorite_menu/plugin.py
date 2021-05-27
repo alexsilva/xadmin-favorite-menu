@@ -22,7 +22,8 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
     favorite_menu = True
 
     def init_request(self, *args, **kwargs):
-        return bool(self.favorite_menu)
+        return bool(getattr(self.admin_view, 'favorite_menu',
+                            self.favorite_menu))
 
     @cached_property
     def has_valid_context(self):
