@@ -21,4 +21,4 @@ msgstr ""
 #: .\static\favorite_menu\js\favorite_menu.js:17
 #: .\static\favorite_menu\js\favorite_menu.js:22
 msgid "failed to create/delete menu."
-msgstr "falhou para criar/deletar o menu."
+msgstr "falhou para criar/remover o menu."
