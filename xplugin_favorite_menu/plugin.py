@@ -105,12 +105,15 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
         nodes.append(f"""
         <script type='application/javascript'>
             $(document).ready(function() {{
-                var $favorite_menu = $("#btn-favorite-menu").favorite_menu({{
-                    target: "#" + favorite_menu_options.target,
-                    data: {json.dumps(data)}
-                }});
-                if ($favorite_menu) {{ $favorite_menu.bind_click() }};
-            }})
+                var menu_options = window.favorite_menu_options || {{}};
+                if (Object.keys(menu_options).length) {{
+                    var $favorite_menu = $("#btn-favorite-menu").favorite_menu({{
+                        target: "#" + menu_options.target,
+                        data: {json.dumps(data)}
+                    }});
+                    if ($favorite_menu) {{$favorite_menu.bind_click()}};
+                }}
+            }});
         </script>
         """)
 
