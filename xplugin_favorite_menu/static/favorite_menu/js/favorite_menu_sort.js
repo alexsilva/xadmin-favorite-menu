@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var menu_options = favorite_menu_options || {},
+    var menu_options = window.favorite_menu_options || {},
         target = "#" + menu_options.target;
     $(target).sortable({
         // html 5
