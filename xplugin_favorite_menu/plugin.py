@@ -1,6 +1,6 @@
 # coding=utf-8
 import json
-
+import django.forms as django_forms
 from django.contrib.contenttypes.models import ContentType
 from django.forms import Media
 from django.template.loader import render_to_string
@@ -19,11 +19,23 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
     favorite_menu_template = "xadmin/favorite_menu/menus.html"
     favorite_menu_render_using = None  # template engine (def. django)
     favorite_menu_root_id = 'favorite-menu-box'
+    favorite_menu_init_option = 'fv.menu'
     favorite_menu = True
 
     def init_request(self, *args, **kwargs):
-        return bool(getattr(self.admin_view, 'favorite_menu',
-                            self.favorite_menu))
+        return bool(getattr(self.admin_view, 'favorite_menu', self.favorite_menu) and
+                    self.enable_on_request)
+
+    @property
+    def enable_on_request(self):
+        """If the plugin was deactivated via request"""
+        field = django_forms.BooleanField(initial=True)
+        try:
+            request_params = self.request.GET
+            return field.to_python(request_params.get(self.favorite_menu_init_option,
+                                                      field.initial))
+        except django_forms.ValidationError:
+            return field.initial
 
     @cached_property
     def has_valid_context(self):
