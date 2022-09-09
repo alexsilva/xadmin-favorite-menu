@@ -4,7 +4,8 @@
 <ul id="{{favorite_menu_root_id}}" data-post-url="{% url 'xadmin:favorite_menu_order' %}">
 {% endif %}
 {% for menu in menus %}
-    {% if menu.content_type.model_class %}
+    {% has_admin_site_registry admin_site menu.content_type.model_class as has_admin_registry %}
+    {% if menu.content_type.model_class and has_admin_registry %}
     <li data-order="order_{{menu.pk}}">
         <a class="small" href="{% sites menu admin_site.app_name %}">
             <span class="menu-app-label">{{menu.content_type.model_class|apps:'verbose_name'}}:</span>
