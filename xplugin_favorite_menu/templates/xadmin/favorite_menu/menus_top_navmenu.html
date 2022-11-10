@@ -1,9 +1,9 @@
-{% load menus %}
+{% load menus i18n %}
 {% if menus %}
 <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" href="#" aria-expanded="false">
+  <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" href="#" aria-expanded="false" title="{% trans 'Favorites' %}">
     <i class="fas fa-star"></i>
-    <span class="d-md-none d-xxl-inline">Favoritos</span>
+    <span class="d-md-none d-xxl-inline">{% trans 'Favorites' %}</span>
   </a>
   <div class="dropdown-menu {{favorite_menu_class}}" aria-labelledby="navbarDropdown" data-post-url="{% url 'xadmin:favorite_menu_order' %}">
     {% for menu in menus %}
