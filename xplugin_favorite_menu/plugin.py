@@ -20,6 +20,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
     favorite_menu_render_using = None  # template engine (def. django)
     favorite_menu_root_id = 'favorite-menu-box'
     favorite_menu_init_option = 'fv.menu'
+    favorite_menu_blocks = []
     favorite_menu = True
 
     def init_request(self, *args, **kwargs):
@@ -101,13 +102,14 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
         return context
 
     def block_menu_nav_top(self, context, nodes):
-        """Displays favorite menus"""
+        """Includes favorite menus in the side menu block."""
         context = self.get_context_menus(context)
         nodes.append(render_to_string(self.favorite_menu_template,
                                       using=self.favorite_menu_render_using,
                                       context=get_context_dict(context)))
 
     def block_top_navmenu(self, context, nodes):
+        """Includes favorite menus in the main navigation bar."""
         context = self.get_context_menus(context)
         nodes.append(render_to_string("xadmin/favorite_menu/menus_top_nav.html",
                                       using=self.favorite_menu_render_using,
