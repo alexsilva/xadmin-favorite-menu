@@ -32,7 +32,7 @@ msgstr "Usuário"
 
 #: models.py:26
 msgid "Removed"
-msgstr ""
+msgstr "Removido"
 
 #: models.py:38
 msgid "Favorite Menu (plugin)"
