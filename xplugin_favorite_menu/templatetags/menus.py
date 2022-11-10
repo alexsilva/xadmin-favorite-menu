@@ -30,3 +30,9 @@ def sites(instance, site):
 def has_admin_site_registry(admin_site, model_class):
     """Checks if the model is registered on the admin site"""
     return bool(admin_site.get_registry(model_class, None))
+
+
+@register.simple_tag(takes_context=True)
+def get_admin_model_icon(context, model_class):
+    """Checks if the model is registered on the admin site"""
+    return context['admin_view'].get_model_icon(model_class)

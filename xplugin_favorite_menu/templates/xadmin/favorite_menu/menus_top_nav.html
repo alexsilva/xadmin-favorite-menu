@@ -1,0 +1,22 @@
+{% load menus %}
+{% if menus %}
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" href="#" aria-expanded="false">
+    <i class="fas fa-star"></i>
+    <span class="d-md-none d-xxl-inline">Favoritos</span>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    {% for menu in menus %}
+      {% has_admin_site_registry admin_site menu.content_type.model_class as has_admin_registry %}
+      {% if menu.content_type.model_class and has_admin_registry %}
+      <a class="dropdown-item" data-order="order_{{menu.pk}}" href="{% sites menu admin_site.app_name %}">
+          {% get_admin_model_icon menu.content_type.model_class as model_icon %}
+          {% if model_icon %}<i class="dropdown-icon {{model_icon}}"></i>{% endif %}
+          <span class="menu-app-label">{{menu.content_type.model_class|apps:'verbose_name'}}:</span>
+          {{menu.content_type.name}}
+      </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</li>
+{% endif %}

@@ -16,7 +16,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
     """
     Plugin that allows you to add favorite menus to the site menu
     """
-    favorite_menu_template = "xadmin/favorite_menu/menus.html"
+    favorite_menu_template = "xadmin/favorite_menu/menus_nav_top.html"
     favorite_menu_render_using = None  # template engine (def. django)
     favorite_menu_root_id = 'favorite-menu-box'
     favorite_menu_init_option = 'fv.menu'
@@ -86,8 +86,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
                                    using=self.favorite_menu_render_using)
         nodes.insert(0, content)
 
-    def block_menu_nav_top(self, context, nodes):
-        """Displays favorite menus"""
+    def get_context_menus(self, context):
         queryset = FavoriteMenu.objects.filter(user=self.request.user,
                                                removed=False)
         if hasattr(self.admin_view, 'favorite_menu_filter'):
@@ -96,9 +95,21 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
             'context': context,
             'menus': queryset,
             'favorite_menu_root_id': self.favorite_menu_root_id,
+            'admin_view': self.admin_view,
             'admin_site': self.admin_site
         }
+        return context
+
+    def block_menu_nav_top(self, context, nodes):
+        """Displays favorite menus"""
+        context = self.get_context_menus(context)
         nodes.append(render_to_string(self.favorite_menu_template,
+                                      using=self.favorite_menu_render_using,
+                                      context=get_context_dict(context)))
+
+    def block_top_navmenu(self, context, nodes):
+        context = self.get_context_menus(context)
+        nodes.append(render_to_string("xadmin/favorite_menu/menus_top_nav.html",
                                       using=self.favorite_menu_render_using,
                                       context=get_context_dict(context)))
 
