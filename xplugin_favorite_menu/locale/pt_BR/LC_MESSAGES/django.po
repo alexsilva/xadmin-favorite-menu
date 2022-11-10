@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-11 19:32-0300\n"
+"POT-Creation-Date: 2022-11-10 15:57-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,26 +18,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\models.py:18
+#: models.py:19
 msgid "Order"
 msgstr "Ordem"
 
-#: .\models.py:19
+#: models.py:22
 msgid "Content"
 msgstr "Conteúdo"
 
-#: .\models.py:20
+#: models.py:25
 msgid "User"
 msgstr "Usuário"
 
-#: .\models.py:31
+#: models.py:26
+msgid "Removed"
+msgstr ""
+
+#: models.py:38
 msgid "Favorite Menu (plugin)"
 msgstr "Menu favorito (plugin)"
 
-#: .\templates\xadmin\favorite_menu\menus_btn_top_toolbar.html:6
+#: templates/xadmin/favorite_menu/menus_btn_top_toolbar.html:6
 msgid "Remove favorite menu"
 msgstr "Remover menu favorito"
 
-#: .\templates\xadmin\favorite_menu\menus_btn_top_toolbar.html:9
+#: templates/xadmin/favorite_menu/menus_btn_top_toolbar.html:9
 msgid "Add favorite menu"
 msgstr "Adicionar menu favorito"
+
+#: templates/xadmin/favorite_menu/menus_top_navmenu.html:4
+#: templates/xadmin/favorite_menu/menus_top_navmenu.html:6
+msgid "Favorites"
+msgstr "Favoritos"
