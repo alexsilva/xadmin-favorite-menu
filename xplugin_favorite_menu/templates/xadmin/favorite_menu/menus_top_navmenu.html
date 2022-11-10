@@ -5,7 +5,7 @@
     <i class="fas fa-star"></i>
     <span class="d-md-none d-xxl-inline">Favoritos</span>
   </a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <div class="dropdown-menu {{favorite_menu_class}}" aria-labelledby="navbarDropdown" data-post-url="{% url 'xadmin:favorite_menu_order' %}">
     {% for menu in menus %}
       {% has_admin_site_registry admin_site menu.content_type.model_class as has_admin_registry %}
       {% if menu.content_type.model_class and has_admin_registry %}

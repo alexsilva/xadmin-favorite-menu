@@ -20,7 +20,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
     favorite_menu_top_navmenu_template = "xadmin/favorite_menu/menus_top_navmenu.html"
     favorite_menu_render_using = None  # template engine (def. django)
     favorite_menu_render_blocks = ("nav_top", "top_navmenu")
-    favorite_menu_root_id = 'favorite-menu-box'
+    favorite_menu_class = 'favorite_menu_box'
     favorite_menu_init_option = 'fv.menu'
     favorite_menu = True
 
@@ -59,7 +59,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
 
     def get_menu_options(self, menu_options):
         """related: FavoriteMenuOptionsView"""
-        menu_options['target'] = self.favorite_menu_root_id
+        menu_options['target'] = self.favorite_menu_class
         return menu_options
 
     @cached_property
@@ -96,7 +96,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
         context = {
             'context': context,
             'menus': queryset,
-            'favorite_menu_root_id': self.favorite_menu_root_id,
+            'favorite_menu_class': self.favorite_menu_class,
             'admin_view': self.admin_view,
             'admin_site': self.admin_site
         }
@@ -138,7 +138,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
                 var menu_options = window.favorite_menu_options || {{}};
                 if (Object.keys(menu_options).length) {{
                     var $favorite_menu = $("#btn-favorite-menu").favorite_menu({{
-                        target: "#" + menu_options.target,
+                        target: "." + menu_options.target,
                         data: {json.dumps(data)}
                     }});
                     if ($favorite_menu) {{$favorite_menu.bind_click()}};

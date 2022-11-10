@@ -1,14 +1,14 @@
 $(document).ready(function () {
     var menu_options = window.favorite_menu_options || {};
     if (Object.keys(menu_options).length) {
-        $("#" + menu_options.target).sortable({
+        $("." + menu_options.target).sortable({
             // html 5
             hoverClass: "cursor-move",
             forcePlaceholderSize: true,
             cursor: "move",
             // html 4
             axis: 'y',
-            items: 'li',
+            items: 'li a',
             update: function (event, ui) {
                 var $rows = $(this);
                 var $item = $(ui.item);
@@ -37,7 +37,7 @@ $(document).ready(function () {
                     $rows = $(event.target),
                     pattern = new RegExp((/(.+)_(\d+)/)),
                     $item = $(event.detail.item);
-                $rows.find("li").each(function () {
+                $rows.find("li, a").each(function () {
                     var order = $(this).data("order"),
                         match = pattern.exec(order);
                     if (match) data.append(match[1], match[2]);
