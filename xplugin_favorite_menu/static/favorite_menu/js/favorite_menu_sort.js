@@ -8,7 +8,7 @@ $(document).ready(function () {
             cursor: "move",
             // html 4
             axis: 'y',
-            items: 'li a',
+            items: 'li, a',
             update: function (event, ui) {
                 var $rows = $(this);
                 var $item = $(ui.item);
