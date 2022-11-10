@@ -33,6 +33,6 @@ def has_admin_site_registry(admin_site, model_class):
 
 
 @register.simple_tag(takes_context=True)
-def get_admin_model_icon(context, model_class):
+def get_admin_model_icon(context, model_class, default=None):
     """Checks if the model is registered on the admin site"""
-    return context['admin_view'].get_model_icon(model_class)
+    return context['admin_view'].get_model_icon(model_class) or default
