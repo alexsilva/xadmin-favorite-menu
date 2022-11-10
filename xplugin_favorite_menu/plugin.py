@@ -16,7 +16,8 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
     """
     Plugin that allows you to add favorite menus to the site menu
     """
-    favorite_menu_template = "xadmin/favorite_menu/menus_nav_top.html"
+    favorite_menu_nav_top_template = "xadmin/favorite_menu/menus_nav_top.html"
+    favorite_menu_top_navmenu_template = "xadmin/favorite_menu/menus_top_navmenu.html"
     favorite_menu_render_using = None  # template engine (def. django)
     favorite_menu_root_id = 'favorite-menu-box'
     favorite_menu_init_option = 'fv.menu'
@@ -104,14 +105,14 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
     def block_menu_nav_top(self, context, nodes):
         """Includes favorite menus in the side menu block."""
         context = self.get_context_menus(context)
-        nodes.append(render_to_string(self.favorite_menu_template,
+        nodes.append(render_to_string(self.favorite_menu_nav_top_template,
                                       using=self.favorite_menu_render_using,
                                       context=get_context_dict(context)))
 
     def block_top_navmenu(self, context, nodes):
         """Includes favorite menus in the main navigation bar."""
         context = self.get_context_menus(context)
-        nodes.append(render_to_string("xadmin/favorite_menu/menus_top_nav.html",
+        nodes.append(render_to_string(self.favorite_menu_top_navmenu_template,
                                       using=self.favorite_menu_render_using,
                                       context=get_context_dict(context)))
 
