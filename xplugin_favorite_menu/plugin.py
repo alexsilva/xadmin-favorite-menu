@@ -75,7 +75,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
         """Render the button that adds menus"""
         if not self.has_valid_context:
             return
-        ajax_url = reverse("xadmin:favorite_menu_{}".format("delete" if self.has_menu else "add"))
+        ajax_url = self.admin_view.get_admin_url(f"favorite_menu_{'delete' if self.has_menu else 'add'}")
         context = {
             'context': context,
             'has_menu': self.has_menu,
