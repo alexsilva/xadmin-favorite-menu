@@ -90,7 +90,7 @@ class FavoriteMenuPlugin(BaseAdminPlugin):
 
     def get_context_menus(self, context):
         queryset = FavoriteMenu.objects.filter(user=self.request.user,
-                                               removed=False)
+                                               removed=False).select_related("content_type")
         if hasattr(self.admin_view, 'favorite_menu_filter'):
             queryset = self.admin_view.favorite_menu_filter(queryset, context)
         context = {
