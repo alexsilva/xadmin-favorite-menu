@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var menu_options = window.favorite_menu_options || {};
     if (Object.keys(menu_options).length) {
-        $("." + menu_options.target).sortable({
+        $("." + menu_options.target).html5sortable({
             // html 5
             hoverClass: "cursor-move",
             forcePlaceholderSize: true,
